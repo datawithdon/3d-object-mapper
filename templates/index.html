@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Object Mapper</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>3D Object Mapper</h1>
+    <p class="subtitle">Upload photos of an object from different angles &rarr; get a rotatable 3D point cloud.</p>
+  </header>
+
+  <main>
+    <section class="panel" id="upload-panel">
+      <form id="upload-form">
+        <label class="dropzone" id="dropzone" for="file-input">
+          <span id="dropzone-text">Click to choose photos, or drag &amp; drop here</span>
+          <input type="file" id="file-input" name="images" accept=".jpg,.jpeg,.png,.bmp" multiple hidden>
+        </label>
+        <div id="file-list"></div>
+        <button type="submit" id="submit-btn" disabled>Build 3D Map</button>
+      </form>
+
+      <div id="status" class="status" hidden></div>
+
+      <details class="tips">
+        <summary>Tips for a good scan</summary>
+        <ul>
+          <li>Use 10&ndash;30 photos, same camera, taken all the way around the object.</li>
+          <li>Keep ~60&ndash;80% overlap between consecutive shots (small steps, not big jumps).</li>
+          <li>Good, even lighting and a textured/detailed object surface help a lot.</li>
+          <li>Avoid plain, reflective, or transparent objects &mdash; feature matching needs visual texture.</li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="panel" id="viewer-panel">
+      <div id="viewer-toolbar" hidden>
+        <span id="viewer-info"></span>
+        <a id="download-link" href="#" download>Download .ply</a>
+      </div>
+      <div id="viewer-container">
+        <div id="viewer-placeholder">Your 3D point cloud will appear here.</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="{{ url_for('static', filename='js/viewer.js') }}"></script>
+</body>
+</html>
