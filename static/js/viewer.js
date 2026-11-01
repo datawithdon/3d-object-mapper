@@ -21,7 +21,11 @@
     selectedFiles.forEach((f) => {
       const row = document.createElement("div");
       row.className = "file-row";
-      row.innerHTML = `<span>${f.name}</span><span>${(f.size / 1024).toFixed(0)} KB</span>`;
+      const name = document.createElement("span");
+      name.textContent = f.name;
+      const size = document.createElement("span");
+      size.textContent = `${(f.size / 1024).toFixed(0)} KB`;
+      row.append(name, size);
       fileListEl.appendChild(row);
     });
     submitBtn.disabled = selectedFiles.length < 3;

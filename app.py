@@ -97,4 +97,6 @@ def download(job_id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5050)
+    # The Flask debugger can run code, so it is off unless FLASK_DEBUG=1.
+    # 127.0.0.1 keeps the app reachable from this computer only.
+    app.run(host="127.0.0.1", port=5050, debug=os.environ.get("FLASK_DEBUG") == "1")
